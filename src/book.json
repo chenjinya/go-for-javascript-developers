@@ -1,3 +1,6 @@
 {
-    "plugins": ["-sharing"]
+    "title": "Go For Javascript Developers",
+    "author": " Maor Zamski & Daniel Singer 翻译 Chen Jinya",
+    "language": "zh",
+    "plugins": ["-sharing","-search"]
 }

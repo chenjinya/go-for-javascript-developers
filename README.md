@@ -4,10 +4,11 @@
 
 ## Read online
 
-This is the source code for "Go for Javascript Developers".
+这里是  "Go for Javascript Developers" 的源码
 
-The book can be found at [http://www.pazams.com/Go-for-Javascript-Developers/](http://www.pazams.com/Go-for-Javascript-Developers/)
+英文原版开源Gitbook地址 [http://www.pazams.com/Go-for-Javascript-Developers/](http://www.pazams.com/Go-for-Javascript-Developers/)
 
+中文翻译版本 [https://github.com/chenjinya/go-for-javascript-developers](https://github.com/chenjinya/go-for-javascript-developers)
 
 ## License
 
