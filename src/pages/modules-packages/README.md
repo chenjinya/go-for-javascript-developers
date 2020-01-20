@@ -9,6 +9,7 @@
 因此，可以肯定地说，Javascript程序通常使用具有本地作用域的文件与模块一对一对应的形式构建
 
 **Go**
+
 Go 从一开始就支持了import声明和包的支持。在Go中没有文件作用域，只有包作用域。从Go 1.6 (or 1.5 + flag)开始，对把依赖包放到项目目录中的 [vendor folder](https://blog.gopheracademy.com/advent-2015/vendor-folder/) 提供了更好的支持。然而它没有试图解决任何问题:
 
 

@@ -28,7 +28,7 @@
 - [Advanced Go Concurrency Patterns](https://talks.golang.org/2013/advconc.slide#1)
 
 
-## (D) 异步 VS 同步 API
+## (D) 异步 VS 同步 APIs
 **JS**
 
 JS 提倡使用异步 APIs，因为同步APIs 经常阻塞调用者，例如:
