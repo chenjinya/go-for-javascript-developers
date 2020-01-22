@@ -1,5 +1,5 @@
-# Flow control statements
-## (B) Loops and iteration
+# 流程控制语句
+## (B) 循环和迭代
 ### For
 **JS**
 ```Javascript
@@ -16,7 +16,9 @@ for i := 0; i < 10; i++ {
 ```
 
 ### While
-In Go, the `for`'s init and post statement are optional, effectively making it also a "while" statement:
+
+在Go中，`for`的初始化和过程语句是可选的，实际上它也是一个“while”语句
+
 
 **JS**
 ```Javascript
@@ -35,7 +37,7 @@ for i < 10 {
 	i++
 }
 ```
-### Iterating over an Array/Slice
+### 遍历一个 Array或Slice
 
 **JS**
 ```Javascript
@@ -53,7 +55,9 @@ for i, v := range []string{"Rick", "Morty", "Beth", "Summer", "Jerry"} {
 
 
 ## (B) If/Else
-Go's `if` can contain an init statement, with variables declared scoped only to the `if` and `else` blocks.
+
+Go的 `if` 可以包含初始化语句，里面的变量声明的作用域是 `if`和`else`的块中。
+
 
 **Go**
 ```Go
@@ -65,11 +69,14 @@ if value := getSomeValue(); value < limit {
 ```
 
 ## (D) Switch
-The switch statement was one of the motivation for writing this document.
 
-Go defaults to break, and `fallthrough` needed for otherwise.
+swtich语句是写这篇文档的动机之一。
 
-Javascript defaults to fallthrough, and `break` needed for otherwise.
+Go默认break，否则需要使用`fallthrough`
+
+Javascript 默认是 fallthrough，否则需要使用 `break`
+
+（译者注: fallthrough指的是自动执行下一条条件语句）
 
 **JS**
 ```Javascript

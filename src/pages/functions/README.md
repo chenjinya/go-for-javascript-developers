@@ -1,11 +1,14 @@
-# Functions
-## (S) first-class functions
-Both languages treat functions as first-class citizens. Both allow functions to be passed as arguments, to be a returned value, to be nested, and have closures.
+# 函数
+## (S) 一级函数
 
-Function nesting in Javascript can be done both with named and anonymous functions, while in Go this can only be done with anonymous functions.
+两种语言都把函数视为一级函数成员。都允许函数当做参数传递，或者当做返回值，或者嵌套，或者闭包
 
-## (D) Multiple returns
-Go functions can return multiple values
+嵌套函数在Javascript中可以被命名或者是匿名函数，而Go中只能是匿名函数
+
+
+## (D) 多返回值
+
+Go函数可以返回多个值
 
 **Go**
 ```Go
@@ -18,7 +21,9 @@ func main() {
 	fmt.Println(a, b)
 }
 ```
-Javascript cannot, however by using destructuring assignment syntax, we can get a similar behavior
+
+Javascript不能使用多返回值的语法，我们可以做一个类似的形式
+
 
 **JS**
 ```Javascript
@@ -31,6 +36,8 @@ console.log(a,b);
 ```
 
 ## (S) IIFE
+
+（译者注： Immediately Invoked Function Expression 立即调用的函数表达式）
 
 **JS**
 ```Javascript
@@ -48,8 +55,9 @@ func main() {
 }
 ```
 
-## (S) Closures
-Both languages have closures. Both require caution when [creating closures inside loops](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures#Creating_closures_in_loops_A_common_mistake). Here are examples in both languages that demonstrate a similar technique to bypass the closure/loop trap:
+## (S) 闭包
+
+两种语言都支持闭包，都需要注意的是当[在循环中使用闭包](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures#Creating_closures_in_loops_A_common_mistake). 以下是两种语言的示例，演示了绕过闭包/循环"陷阱"的方式：
 
 **JS (with bug)**
 ```Javascript
