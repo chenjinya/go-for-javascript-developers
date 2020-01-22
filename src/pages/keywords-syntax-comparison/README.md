@@ -1,14 +1,16 @@
-# Keywords & Syntax Comparison
+# 关键词和语法比较
 
-## (D) `this` keyword
+## (D) `this` 关键词
 **JS**
 
-Inside an object method, `this` refers to the object (with some exceptions).
+在一个对象方法里面，`this` 指向这个对象自己（不过有些例外）
 
 **Go**
 
-In Go, the closest analogy would be receivers inside method functions.
-You *may* use `this` as a receiver:
+在Go中，最接近的类比就是内部函数的接收器.
+
+你*可以*使用`this` 当做接收器
+
 ```Go
 type Bar struct {
 	foo string
@@ -18,23 +20,27 @@ func (this *Bar) Foo() string {
 	return this.foo
 }
 ```
-It is more idiomatic to use short variables as receivers. In the example above `b` would have been a better fit over `this`.
 
-## (D) `new` keyword
+更符合Go语言风格的是使用缩写变量当做接收器。在上面的例子里，`b`比`this`是一个更好的选择
+
+
+## (D) `new` 关键词
 **JS**
 
-`new Foo()` instantiates an object from `Foo`, a constructor function or a class.
+`new Foo()` 表示一个`Foo`的实例化对象 ，`Foo`可以是一个构造函数，或者是一个类 
+
 
 **Go**
 
-`new(T)` allocates zeroed storage for a new item of type `T` and returns a pointer, `*T`. This is different than Javascript and most other languages where `new` will **initialize** the object, while in Golang it only **zeros** it.
+`new(T)` 表示为 `T`类型分配一块空内存并且返回一个指针，`*T`。这与Javascript或者其他大多数语言不一样，他们的`new`会**初始化**对象，但是Golang只是分配一块空内存。
 
-It is worthy to mention that it is [idiomatic](https://blog.golang.org/package-names) to name methods with a "New" prefix to denote it returns a pointer to the type following in the method name. e.g:
+这里需要提到一个 [语言习惯](https://blog.golang.org/package-names)，方法名加上"New"前缀代表这它返回一个"New"后面名字类型的指针。比如:
+
 ```Go
 timer := time.NewTimer(d) // timer is a *time.Timer
 ```
 
-## (D) bind / method values
+## (D) 绑定或方法的值
 
 **JS**
 ```Javascript
@@ -46,7 +52,9 @@ var f = bar.foo.bind(bar2); // when calling f(), "this" will refer to bar2
 f := bar.foo // f(), is same as bar.foo()
 ```
 
-## (S) setTimeout / timer
+（译者注：Go没有this，使用接收器代替this）
+
+## (S) 延时或计时器
 
 **JS**
 ```Javascript
@@ -58,7 +66,7 @@ setTimeout(somefunction, 3*1000)
 time.AfterFunc(3*time.Second, somefunction)
 ```
 
-## (D) setInterval / ticker
+## (D) 定时器或时钟
 
 **JS**
 ```Javascript
@@ -75,14 +83,17 @@ go func() {
 }()
 ```
 
-## (D) String literals
+## (D) 字符串常量
 **JS**
 
-Strings are initialized with single quotes (`'hello'`) or double quotes (`"hello"`), yet most coding styles prefer the single quotes variation. Raw string literals use backticks (``` `hello` ```).
+字符串可以被单引号(`'hello'`)或者双引号(`"hello"`)初始化，当然，大多数代码风格更倾向于使用单引号。原始字符串可以使用反引号(``` `hello` ```)。
+
 
 **Go**
 
-Strings are initialized with double quotes (`"hello"`) or raw string literals with backticks (``` `hello` ```)
+字符串可以被双引号(`"hello"`) 或者原始字符串可以使用反引号(``` `hello` ```)初始化
 
-## (S) Comments
-Both languages use the same `/* block comments */`  and `// line comments`.
+
+## (S) 注释
+
+两种语言都使用 `/* block comments */`  和 `// line comments`.
