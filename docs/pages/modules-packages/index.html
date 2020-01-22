@@ -1,0 +1,787 @@
+
+<!DOCTYPE HTML>
+<html lang="zh" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>模块 / 包 · Go For Javascript Developers</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content=" Maor Zamski & Daniel Singer 翻译 Chen Jinya">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="../../styles/website.css">
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="./" />
+    
+    
+    <link rel="prev" href="../concurrency-parallelism/" />
+    
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-71726858-1', 'auto');
+ga('send', 'pageview', location.pathname);
+</script>
+<!-- End Google Analytics -->
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../internals/">
+            
+                <a href="../internals/">
+            
+                    
+                    内部原理
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../internals/">
+            
+                <a href="../internals/#s-堆栈-内存分配">
+            
+                    
+                    (S) 堆/栈 内存分配
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../internals/">
+            
+                <a href="../internals/#s-垃圾回收">
+            
+                    
+                    (S) 垃圾回收
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../internals/">
+            
+                <a href="../internals/#d-编译">
+            
+                    
+                    (D) 编译
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../concurrency-parallelism/">
+            
+                <a href="../concurrency-parallelism/">
+            
+                    
+                    并发与并行
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../concurrency-parallelism/">
+            
+                <a href="../concurrency-parallelism/#d-概览">
+            
+                    
+                    (D) 概览
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../concurrency-parallelism/">
+            
+                <a href="../concurrency-parallelism/#d-异步-vs-同步-apis">
+            
+                    
+                    (D) 异步 vs 同步 APIs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../concurrency-parallelism/">
+            
+                <a href="../concurrency-parallelism/#d-顺序和并发模式">
+            
+                    
+                    (D) 顺序和并发模型
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    模块 / 包
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="./">
+            
+                <a href="./#规范与实践">
+            
+                    
+                    规范与实践
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="./">
+            
+                <a href="./#包管理">
+            
+                    
+                    包管理
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../error-handling/">
+            
+                <a href="../error-handling/">
+            
+                    
+                    错误处理
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../error-handling/">
+            
+                <a href="../error-handling/#b-流控制与值">
+            
+                    
+                    (B) 流控制与值
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../error-handling/">
+            
+                <a href="../error-handling/#d-使用方式">
+            
+                    
+                    (D) 使用方式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../error-handling/">
+            
+                <a href="../error-handling/#s-跟踪堆栈的丢失">
+            
+                    
+                    (S) 跟踪堆栈的丢失
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../error-handling/">
+            
+                <a href="../error-handling/#d-前景">
+            
+                    
+                    (D) 前景
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../keywords-syntax-comparison/">
+            
+                <a href="../keywords-syntax-comparison/">
+            
+                    
+                    关键词和语法比较
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../keywords-syntax-comparison/">
+            
+                <a href="../keywords-syntax-comparison/#d-this-关键词">
+            
+                    
+                    (D) this 关键词
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../keywords-syntax-comparison/">
+            
+                <a href="../keywords-syntax-comparison/#d-new-关键词">
+            
+                    
+                    (D) new 关键词
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../keywords-syntax-comparison/">
+            
+                <a href="../keywords-syntax-comparison/#d-绑定或方法的值">
+            
+                    
+                    (D) 绑定或方法的值
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../keywords-syntax-comparison/">
+            
+                <a href="../keywords-syntax-comparison/#s-延时或计时器">
+            
+                    
+                    (S) 延时或计时器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="../keywords-syntax-comparison/">
+            
+                <a href="../keywords-syntax-comparison/#d-定时器或时钟">
+            
+                    
+                    (D) 定时器或时钟
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.6" data-path="../keywords-syntax-comparison/">
+            
+                <a href="../keywords-syntax-comparison/#d-字符串常量">
+            
+                    
+                    (D) 字符串常量
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7" data-path="../keywords-syntax-comparison/">
+            
+                <a href="../keywords-syntax-comparison/#s-注释">
+            
+                    
+                    (S) 注释
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../types/">
+            
+                <a href="../types/">
+            
+                    
+                    流程控制语句
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../types/">
+            
+                <a href="../types/#d-值，指针，引用">
+            
+                    
+                    (D) 值，指针，引用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="../types/">
+            
+                <a href="../types/#d-数组--切片">
+            
+                    
+                    (D) 数组 / 切片
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="../types/">
+            
+                <a href="../types/#d-字典">
+            
+                    
+                    (D) 字典
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.4" data-path="../types/">
+            
+                <a href="../types/#d-集合">
+            
+                    
+                    (D) 集合
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../flow-control-statements/">
+            
+                <a href="../flow-control-statements/">
+            
+                    
+                    流控制
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../flow-control-statements/">
+            
+                <a href="../flow-control-statements/#b-循环和迭代">
+            
+                    
+                    (B) 循环和迭代
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="../flow-control-statements/">
+            
+                <a href="../flow-control-statements/#b-ifelse">
+            
+                    
+                    (B) If/Else
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="../flow-control-statements/">
+            
+                <a href="../flow-control-statements/#d-switch">
+            
+                    
+                    (D) Switch
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../functions/">
+            
+                <a href="../functions/">
+            
+                    
+                    函数
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="../functions/">
+            
+                <a href="../functions/#s-一级函数">
+            
+                    
+                    (S) 一级函数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="../functions/">
+            
+                <a href="../functions/#d-多返回值">
+            
+                    
+                    (D) 多返回值
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="../functions/">
+            
+                <a href="../functions/#s-iife">
+            
+                    
+                    (S) IIFE
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.4" data-path="../functions/">
+            
+                <a href="../functions/#s-闭包">
+            
+                    
+                    (S) 闭包
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../license/">
+            
+                <a href="../license/">
+            
+                    
+                    License
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <a class="btn pull-right" aria-label="" href="/">
+	    <span class="logo-pazams">
+	    </span>
+	    <span class="pull-right">
+	       Blog
+	    </span>
+    </a>
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >模块 / 包</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#x6A21;&#x5757;--&#x5305;">&#x6A21;&#x5757; / &#x5305;</h1>
+<h2 id="&#x89C4;&#x8303;&#x4E0E;&#x5B9E;&#x8DF5;">&#x89C4;&#x8303;&#x4E0E;&#x5B9E;&#x8DF5;</h2>
+<p><strong>JS</strong></p>
+<p>&#x4ECE;ES6&#x5F00;&#x59CB;&#xFF0C;Javascript&#x89C4;&#x5B9A;&#x4E86;&#x4E00;&#x4E2A;&#x6A21;&#x5757;&#x5F15;&#x7528;&#x6A21;&#x5F0F;&#xFF0C;&#x4E0D;&#x8FC7;&#x5728;&#x8FD9;&#x4E4B;&#x524D;&#xFF0C;AMD&#x548C;CommonJS&#x89C4;&#x8303;&#x5DF2;&#x7ECF;&#x975E;&#x5E38;&#x6D41;&#x884C;&#x4E86;&#x3002;</p>
+<p>&#x5728;ES6&#x6A21;&#x5757;&#x5316;&#x4E4B;&#x524D;&#xFF0C;&#x89C4;&#x8303;&#x53EA;&#x652F;&#x6301; <em>script</em> &#x6A21;&#x5F0F;&#xFF0C;&#x5176;&#x4E2D;&#x6BCF;&#x4E2A;&#x6587;&#x4EF6;&#x5171;&#x4EAB;&#x76F8;&#x540C;&#x7684;&#x9876;&#x7EA7;&#x5168;&#x5C40;&#x4F5C;&#x7528;&#x57DF;&#x3002;&#x8FD9;&#x610F;&#x5473;&#x7740;&#x811A;&#x672C;&#x6CA1;&#x6709;&#x6B63;&#x5F0F;&#x7684; &quot;&#x6587;&#x4EF6;&#x4F5C;&#x7528;&#x57DF;&quot;&#x3002;&#x5B9E;&#x9645;&#x4E0A;&#xFF0C;&#x6587;&#x4EF6;&#x6A21;&#x5757;&#x4F5C;&#x7528;&#x57DF;&#x662F;&#x5F88;&#x5E38;&#x89C1;&#x7684;&#xFF0C;&#x4E0D;&#x7BA1;&#x662F;&#x901A;&#x8FC7;&#x4EE3;&#x7801;(<code>window.moduleA = &#x2026;</code>)&#xFF0C;&#x6216;&#x8005;&#x5916;&#x90E8;&#x5DE5;&#x5177;(requireJS)&#xFF0C;&#x8FD8;&#x662F;&#x5728;&#x8FD0;&#x884C;&#x65F6;&#x4E2D;&#x7684;&#x6A21;&#x5757;&#x7CFB;&#x7EDF;(NodeJS)</p>
+<p>&#x56E0;&#x6B64;&#xFF0C;&#x53EF;&#x4EE5;&#x80AF;&#x5B9A;&#x5730;&#x8BF4;&#xFF0C;Javascript&#x7A0B;&#x5E8F;&#x901A;&#x5E38;&#x4F7F;&#x7528;&#x5177;&#x6709;&#x672C;&#x5730;&#x4F5C;&#x7528;&#x57DF;&#x7684;&#x6587;&#x4EF6;&#x4E0E;&#x6A21;&#x5757;&#x4E00;&#x5BF9;&#x4E00;&#x5BF9;&#x5E94;&#x7684;&#x5F62;&#x5F0F;&#x6784;&#x5EFA;</p>
+<p><strong>Go</strong></p>
+<p>Go &#x4ECE;&#x4E00;&#x5F00;&#x59CB;&#x5C31;&#x652F;&#x6301;&#x4E86;import&#x58F0;&#x660E;&#x548C;&#x5305;&#x7684;&#x652F;&#x6301;&#x3002;&#x5728;Go&#x4E2D;&#x6CA1;&#x6709;&#x6587;&#x4EF6;&#x4F5C;&#x7528;&#x57DF;&#xFF0C;&#x53EA;&#x6709;&#x5305;&#x4F5C;&#x7528;&#x57DF;&#x3002;&#x4ECE;Go 1.6 (or 1.5 + flag)&#x5F00;&#x59CB;&#xFF0C;&#x5BF9;&#x628A;&#x4F9D;&#x8D56;&#x5305;&#x653E;&#x5230;&#x9879;&#x76EE;&#x76EE;&#x5F55;&#x4E2D;&#x7684; <a href="https://blog.gopheracademy.com/advent-2015/vendor-folder/" target="_blank">vendor folder</a> &#x63D0;&#x4F9B;&#x4E86;&#x66F4;&#x597D;&#x7684;&#x652F;&#x6301;&#x3002;&#x7136;&#x800C;&#x5B83;&#x6CA1;&#x6709;&#x8BD5;&#x56FE;&#x89E3;&#x51B3;&#x4EFB;&#x4F55;&#x95EE;&#x9898;:</p>
+<blockquote>
+<p>&#x2026; this does not attempt to solve the problem of vendoring resulting in multiple copies of a package being linked into a single binary. Sometimes having multiple copies of a library is not a problem; sometimes it is. At least for now, it doesn&#x2019;t seem that the go command should be in charge of policing or solving that problem.</p>
+<p>&#x5B83;&#x6CA1;&#x6709;&#x8BD5;&#x56FE;&#x89E3;&#x51B3;&#x540C;&#x4E00;&#x4E2A;&#x7B2C;&#x4E09;&#x65B9;&#x5305;&#x88AB;&#x591A;&#x6B21;&#x62F7;&#x8D1D;&#x7684;&#x95EE;&#x9898;&#x3002;&#x6709;&#x4E9B;&#x65F6;&#x5019;&#x5B58;&#x5728;&#x591A;&#x62F7;&#x8D1D;&#x4E0D;&#x662F;&#x4E00;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;&#x4F46;&#x662F;&#x6709;&#x4E9B;&#x65F6;&#x5019;&#x5B83;&#x662F;&#x4E2A;&#x95EE;&#x9898;&#x3002;&#x81F3;&#x5C11;&#x73B0;&#x5728;&#x770B;&#x6765;&#xFF0C;Go&#x5E76;&#x6CA1;&#x6709;&#x60F3;&#x8D1F;&#x8D23;&#x89E3;&#x51B3;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x3002;</p>
+</blockquote>
+<p>&#x5982;&#x679C;&#x9009;&#x62E9;&#x4F7F;&#x7528;Go&#x6A21;&#x5757;&#xFF08;&#x5982;go 1.11&#x4E2D;&#x4ECB;&#x7ECD;&#x7684;&#xFF09;&#xFF0C;vendor&#x6587;&#x4EF6;&#x5939;&#x9ED8;&#x8BA4;&#x662F;&#x4E0D;&#x5FC5;&#x8981;&#x7684;&#x3002;(&#x4E0B;&#x8F7D;&#x7684;&#x6A21;&#x5757;&#x6E90;&#x4EE3;&#x7801;&#x88AB;&#x5B58;&#x5728;&#x76EE;&#x5F55;<code>$GOPATH/pkg/mod</code>)&#x3002;<code>go.mod</code>&#x548C;<code>go.sum</code>&#x66FF;&#x4EE3;&#x4E86;vendor&#x6587;&#x4EF6;&#x5939;&#xFF0C;&#x8FD9;&#x4E24;&#x4E2A;&#x6587;&#x4EF6;&#x63D0;&#x4F9B; 100% &#x53EF;&#x590D;&#x5236;&#x548C;&#x6784;&#x5EFA;&#x5B89;&#x5168;&#xFF08;&#x63D0;&#x4F9B;&#x83B7;&#x53D6;&#x6269;&#x5C55;&#x6A21;&#x5757;&#x7684;&#x65B9;&#x5F0F;&#xFF09;&#x3002;&#x4E0D;&#x8FC7;&#x4F60;&#x4E5F;&#x53EF;&#x4EE5;<a href="https://github.com/golang/go/wiki/Modules#how-do-i-use-vendoring-with-modules-is-vendoring-going-away" target="_blank">&#x4FDD;&#x7559;</a> vendor&#x6587;&#x4EF6;&#x5939; &#x3002;</p>
+<p><strong>&#x4E0D;&#x540C;&#x70B9;</strong></p>
+<p>&#x4E00;&#x4E2A; JS &#x6A21;&#x5757;&#x53EF;&#x4EE5;&#x4F7F;&#x4EFB;&#x610F;&#x6709;&#x6548;&#x7684; JS&#x7C7B;&#x578B;&#x3002;&#x901A;&#x8FC7;&#x5BFC;&#x51FA;&#x4E00;&#x4E2A;object,&#x4ED6;&#x53EF;&#x4EE5;&#x5C06;&#x5C06;&#x591A;&#x4E2A;&#x51FD;&#x6570;&#x3001;&#x53D8;&#x91CF;&#x7B49;&#x653E;&#x5230;<em>package</em>&#x91CC;&#x3002;&#x5982;&#x679C;&#x5BFC;&#x51FA;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#xFF0C;&#x5B83;&#x53EF;&#x4EE5;&#x53EA;&#x5177;&#x5907;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x7684;&#x529F;&#x80FD;&#x3002;&#x53E6;&#x4E00;&#x65B9;&#x9762;&#xFF0C;&#x4E00;&#x4E2A;Go package&#xFF0C;&#x5C31;&#x50CF;&#x4ED6;&#x7684;&#x540D;&#x5B57;&#x4E00;&#x6837;&#xFF0C;&#x53EA;&#x662F;&#x4E00;&#x4E2A;&#x5305;&#xFF08;&#x8BD1;&#x8005;&#x6CE8;&#xFF1A;&#x8001;&#x5916;&#x771F;&#x80FD;&#x778E;&#x626F;&#xFF09;&#x3002;&#x6240;&#x4EE5;&#x5982;&#x679C;&#x4E00;&#x4E2A;Javascript&#x6A21;&#x5757;&#x662F;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#x7C7B;&#x578B;&#xFF0C;&#x90A3;&#x4E48;&#x5B83;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x88AB;&#x8C03;&#x7528;&#xFF0C;&#x8FD9;&#x5728;Go&#x91CC;&#x9762;&#x662F;&#x4E0D;&#x53EF;&#x4EE5;&#x7684;&#x3002;</p>
+<p>&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x4E0D;&#x540C;&#x70B9;&#x662F;&#x540C;&#x4E00;&#x4E2A;&#x9879;&#x76EE;&#x4E2D;&#x5176;&#x4ED6;&#x5185;&#x90E8;&#x7EC4;&#x4EF6;&#x7684;&#x8C03;&#x7528;&#x6210;&#x672C;&#x3002;&#x5728;Javascript&#x4E2D;&#xFF0C;&#x56E0;&#x4E3A;&#x6BCF;&#x4E2A;&#x6587;&#x4EF6;&#x90FD;&#x662F;&#x4E00;&#x4E2A;&#x6A21;&#x5757;&#xFF08;&#x901A;&#x5E38;&#x662F;&#x8FD9;&#x6837;&#xFF09;&#xFF0C;&#x6240;&#x4EE5;&#x6587;&#x4EF6;&#x90FD;&#x9700;&#x8981;&#x88AB;&#x5BFC;&#x5165;&#x540E;&#x624D;&#x80FD;&#x4F7F;&#x7528;&#x3002;&#x53E6;&#x4E00;&#x65B9;&#x9762;&#xFF0C;&#x5728;Go&#x4E2D;&#xFF0C;&#x56E0;&#x4E3A;&#x6CA1;&#x6709;&#x6587;&#x4EF6;&#x4F5C;&#x7528;&#x57DF;&#xFF0C;&#x6240;&#x6709;&#x5728;&#x540C;&#x4E00;&#x5305;&#x4E2D;&#x7684;&#x6587;&#x4EF6;&#x76F8;&#x4E92;&#x4E4B;&#x95F4;&#x53EF;&#x4EE5;&#x4EFB;&#x610F;&#x8BBF;&#x95EE;&#x3002;</p>
+<h2 id="&#x5305;&#x7BA1;&#x7406;">&#x5305;&#x7BA1;&#x7406;</h2>
+<p>&#x5728;Javascript&#x4E2D;&#xFF0C;<strong>NPM</strong> &#x662F;NodeJS&#x7684;&#x5305;&#x7BA1;&#x7406;&#x5DE5;&#x5177;&#xFF0C;&#x5728;&#x5BA2;&#x6237;&#x7AEF;&#xFF08;&#x8BD1;&#x8005;&#x6CE8;&#xFF1A;&#x6D4F;&#x89C8;&#x5668;&#xFF09;&#x4E5F;&#x51E0;&#x4E4E;&#x662F;&#x5982;&#x6B64;&#x3002;<strong>Bower</strong>&#x5728;&#x5BA2;&#x6237;&#x7AEF;&#x4E5F;&#x662F;&#x4E00;&#x4E2A;&#x6D41;&#x884C;&#x7684;&#x5305;&#x7BA1;&#x7406;&#x8F6F;&#x4EF6;</p>
+<p>Go 1.11 &#x5F15;&#x5165;&#x4E86; <a href="https://github.com/golang/go/wiki/Modules" target="_blank">go mod</a>, &#x7B97;&#x662F;&#x4E00;&#x4E2A;&#x6B63;&#x5F0F;&#x7684;&#x4F9D;&#x8D56;&#x7BA1;&#x7406;&#x5DE5;&#x5177;&#x3002;</p>
+<p>&#x7531;&#x4E8E;&#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x540E;&#x671F;&#x8865;&#x5145;&#xFF0C;&#x6240;&#x4EE5;&#x5176;&#x4ED6;&#x793E;&#x533A;&#x7684;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#x4E5F;&#x5728;&#x4E00;&#x4E9B;&#x9879;&#x76EE;&#x4E2D;&#x4F7F;&#x7528;&#x3002;&#x5982;&#x4E0B;&#x5217;&#x8868;&#x662F;&#x90E8;&#x5206;&#x7684;&#x8FD9;&#x4E9B;&#x793E;&#x533A;&#x7684;&#x89E3;&#x51B3;&#x65B9;&#x6848;:</p>
+<ul>
+<li><a href="https://github.com/Masterminds/glide" target="_blank">https://github.com/Masterminds/glide</a></li>
+<li><a href="https://github.com/tools/godep" target="_blank">https://github.com/tools/godep</a></li>
+<li><a href="https://github.com/kardianos/govendor" target="_blank">https://github.com/kardianos/govendor</a></li>
+<li><a href="https://github.com/mattn/gom" target="_blank">https://github.com/mattn/gom</a></li>
+<li><a href="https://github.com/golang/dep" target="_blank">https://github.com/golang/dep</a></li>
+</ul>
+
+                                
+                                </section>
+                            
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../concurrency-parallelism/#d-顺序和并发模式" class="navigation navigation-prev " aria-label="Previous page: (D) 顺序和并发模型">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="./#规范与实践" class="navigation navigation-next " aria-label="Next page: 规范与实践">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"模块 / 包","level":"1.4","depth":1,"next":{"title":"规范与实践","level":"1.4.1","depth":2,"anchor":"#规范与实践","path":"pages/modules-packages/README.md","ref":"pages/modules-packages/README.md#规范与实践","articles":[]},"previous":{"title":"(D) 顺序和并发模型","level":"1.3.3","depth":2,"anchor":"#d-顺序和并发模式","path":"pages/concurrency-parallelism/README.md","ref":"pages/concurrency-parallelism/README.md#d-顺序和并发模式","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-search"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":" Maor Zamski & Daniel Singer 翻译 Chen Jinya","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Go For Javascript Developers","language":"zh","gitbook":"*"},"file":{"path":"pages/modules-packages/README.md","mtime":"2020-01-20T03:55:14.150Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-01-22T12:03:25.180Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

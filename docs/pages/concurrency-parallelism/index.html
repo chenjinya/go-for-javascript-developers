@@ -1,0 +1,922 @@
+
+<!DOCTYPE HTML>
+<html lang="zh" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>并发与并行 · Go For Javascript Developers</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content=" Maor Zamski & Daniel Singer 翻译 Chen Jinya">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="../../styles/website.css">
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="./" />
+    
+    
+    <link rel="prev" href="../internals/" />
+    
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-71726858-1', 'auto');
+ga('send', 'pageview', location.pathname);
+</script>
+<!-- End Google Analytics -->
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../internals/">
+            
+                <a href="../internals/">
+            
+                    
+                    内部原理
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../internals/">
+            
+                <a href="../internals/#s-堆栈-内存分配">
+            
+                    
+                    (S) 堆/栈 内存分配
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../internals/">
+            
+                <a href="../internals/#s-垃圾回收">
+            
+                    
+                    (S) 垃圾回收
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../internals/">
+            
+                <a href="../internals/#d-编译">
+            
+                    
+                    (D) 编译
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    并发与并行
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="./">
+            
+                <a href="./#d-概览">
+            
+                    
+                    (D) 概览
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="./">
+            
+                <a href="./#d-异步-vs-同步-apis">
+            
+                    
+                    (D) 异步 vs 同步 APIs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="./">
+            
+                <a href="./#d-顺序和并发模式">
+            
+                    
+                    (D) 顺序和并发模型
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../modules-packages/">
+            
+                <a href="../modules-packages/">
+            
+                    
+                    模块 / 包
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../modules-packages/">
+            
+                <a href="../modules-packages/#规范与实践">
+            
+                    
+                    规范与实践
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../modules-packages/">
+            
+                <a href="../modules-packages/#包管理">
+            
+                    
+                    包管理
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../error-handling/">
+            
+                <a href="../error-handling/">
+            
+                    
+                    错误处理
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../error-handling/">
+            
+                <a href="../error-handling/#b-流控制与值">
+            
+                    
+                    (B) 流控制与值
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../error-handling/">
+            
+                <a href="../error-handling/#d-使用方式">
+            
+                    
+                    (D) 使用方式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../error-handling/">
+            
+                <a href="../error-handling/#s-跟踪堆栈的丢失">
+            
+                    
+                    (S) 跟踪堆栈的丢失
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../error-handling/">
+            
+                <a href="../error-handling/#d-前景">
+            
+                    
+                    (D) 前景
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../keywords-syntax-comparison/">
+            
+                <a href="../keywords-syntax-comparison/">
+            
+                    
+                    关键词和语法比较
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../keywords-syntax-comparison/">
+            
+                <a href="../keywords-syntax-comparison/#d-this-关键词">
+            
+                    
+                    (D) this 关键词
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../keywords-syntax-comparison/">
+            
+                <a href="../keywords-syntax-comparison/#d-new-关键词">
+            
+                    
+                    (D) new 关键词
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../keywords-syntax-comparison/">
+            
+                <a href="../keywords-syntax-comparison/#d-绑定或方法的值">
+            
+                    
+                    (D) 绑定或方法的值
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../keywords-syntax-comparison/">
+            
+                <a href="../keywords-syntax-comparison/#s-延时或计时器">
+            
+                    
+                    (S) 延时或计时器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="../keywords-syntax-comparison/">
+            
+                <a href="../keywords-syntax-comparison/#d-定时器或时钟">
+            
+                    
+                    (D) 定时器或时钟
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.6" data-path="../keywords-syntax-comparison/">
+            
+                <a href="../keywords-syntax-comparison/#d-字符串常量">
+            
+                    
+                    (D) 字符串常量
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7" data-path="../keywords-syntax-comparison/">
+            
+                <a href="../keywords-syntax-comparison/#s-注释">
+            
+                    
+                    (S) 注释
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../types/">
+            
+                <a href="../types/">
+            
+                    
+                    流程控制语句
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../types/">
+            
+                <a href="../types/#d-值，指针，引用">
+            
+                    
+                    (D) 值，指针，引用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="../types/">
+            
+                <a href="../types/#d-数组--切片">
+            
+                    
+                    (D) 数组 / 切片
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="../types/">
+            
+                <a href="../types/#d-字典">
+            
+                    
+                    (D) 字典
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.4" data-path="../types/">
+            
+                <a href="../types/#d-集合">
+            
+                    
+                    (D) 集合
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../flow-control-statements/">
+            
+                <a href="../flow-control-statements/">
+            
+                    
+                    流控制
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../flow-control-statements/">
+            
+                <a href="../flow-control-statements/#b-循环和迭代">
+            
+                    
+                    (B) 循环和迭代
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="../flow-control-statements/">
+            
+                <a href="../flow-control-statements/#b-ifelse">
+            
+                    
+                    (B) If/Else
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="../flow-control-statements/">
+            
+                <a href="../flow-control-statements/#d-switch">
+            
+                    
+                    (D) Switch
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../functions/">
+            
+                <a href="../functions/">
+            
+                    
+                    函数
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="../functions/">
+            
+                <a href="../functions/#s-一级函数">
+            
+                    
+                    (S) 一级函数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="../functions/">
+            
+                <a href="../functions/#d-多返回值">
+            
+                    
+                    (D) 多返回值
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="../functions/">
+            
+                <a href="../functions/#s-iife">
+            
+                    
+                    (S) IIFE
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.4" data-path="../functions/">
+            
+                <a href="../functions/#s-闭包">
+            
+                    
+                    (S) 闭包
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../license/">
+            
+                <a href="../license/">
+            
+                    
+                    License
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <a class="btn pull-right" aria-label="" href="/">
+	    <span class="logo-pazams">
+	    </span>
+	    <span class="pull-right">
+	       Blog
+	    </span>
+    </a>
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >并发与并行</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#x5E76;&#x53D1;&#x4E0E;&#x5E76;&#x884C;">&#x5E76;&#x53D1;&#x4E0E;&#x5E76;&#x884C;</h1>
+<h2 id="d-&#x6982;&#x89C8;">(D) &#x6982;&#x89C8;</h2>
+<p><strong>JS</strong></p>
+<p>&#x8BA8;&#x8BBA;Javascript&#x5E76;&#x884C;&#x95EE;&#x9898;&#x6700;&#x597D;&#x7684;&#x89E3;&#x7B54;&#x662F;&#x6765;&#x81EA;&#x8FD9;&#x4E2A;<a href="http://debuggable.com/posts/understanding-node-js:4bd98440-45e4-4a9a-8ef7-0f7ecbdd56cb" target="_blank">&#x5F15;&#x7528;</a> by Felix Geisend&#xF6;rfer:</p>
+<blockquote>
+<p> Well, in node everything runs in parallel, except your code.</p>
+<p>&#x597D;&#x5427;&#xFF0C; &#x5728;node&#x91CC;&#x9762;&#x6240;&#x6709;&#x7684;&#x4E1C;&#x897F;&#x90FD;&#x662F;&#x5E76;&#x884C;&#x7684;&#xFF0C;&#x9664;&#x4E86;&#x4F60;&#x7684;&#x4EE3;&#x7801;&#x3002;</p>
+</blockquote>
+<p>&#x4E5F;&#x8BB8;&#x4F60;&#x7684;Javascript &#x8FD0;&#x884C;&#x65F6; &#x4F1A;&#x4F7F;&#x7528;&#x591A;&#x7EBF;&#x7A0B;&#x53BB;&#x5904;&#x7406;IO&#xFF0C;&#x4F46;&#x662F;&#x4F60;&#x81EA;&#x5DF1;&#x7684;&#x4EE3;&#x7801;&#x53EA;&#x662F;&#x8DD1;&#x5728;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x91CC;&#x3002;&#x8FD9;&#x662F;&#x4E8B;&#x4EF6;&#x6A21;&#x578B;&#x7684;&#x6700;&#x6DF1;&#x5965;&#x4E49;&#x3002;</p>
+<p>&#x4E0D;&#x540C;&#x7684;Javascript&#x8FD0;&#x884C;&#x65F6;&#x5728;&#x5E76;&#x53D1;/&#x5E76;&#x884C;&#x65B9;&#x9762;&#x8FDB;&#x884C;&#x4E0D;&#x540C;&#x7684;&#x5904;&#x7406;: NodeJS&#x4F7F;&#x7528; <a href="https://nodejs.org/docs/latest/api/cluster.html" target="_blank">clustering</a>, &#x6D4F;&#x89C8;&#x5668;&#x4F7F;&#x7528; <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers" target="_blank">web workers</a>.</p>
+<p><strong>Go</strong></p>
+<p>&#x53E6;&#x4E00;&#x65B9;&#x9762;&#xFF0C;Go &#x662F;&#x4E00;&#x4E2A;&#x652F;&#x6301;&#x5E76;&#x884C;&#x6027;&#x5E76;&#x53D1;&#x7684;&#x8BED;&#x8A00;&#x3002;&#x5B83;&#x63D0;&#x4F9B;&#x7684;<code>&#x534F;&#x7A0B;</code>&#x5141;&#x8BB8;&#x51FD;&#x6570;&#x5E76;&#x53D1;&#x8FD0;&#x884C;&#xFF0C;&#x540C;&#x65F6;&#x4F7F;&#x7528;<code>&#x7BA1;&#x9053;</code>&#x8D1F;&#x8D23;&#x534F;&#x7A0B;&#x4E4B;&#x95F4;&#x7684;&#x901A;&#x4FE1;&#x3002;&#x540C;&#x65F6; Go&#x7684;&#x6807;&#x51C6;&#x5E93;&#x6587;&#x4EF6;&#x6709;&#x4E00;&#x4E2A; &quot;sync&quot;&#x5305;&#xFF0C;&#x63D0;&#x4F9B;&#x4E86;&#x539F;&#x751F;&#x7684;&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#xFF0C;&#x5B83;&#x63D0;&#x5021;<a href="https://blog.golang.org/share-memory-by-communicating" target="_blank">encourages</a> &#x66F4;&#x591A;&#x7684;&#x4F7F;&#x7528;&#x534F;&#x7A0B;&#x548C;&#x901A;&#x9053;&#xFF0C;&#x603B;&#x7ED3;&#x5982;&#x4E0B;</p>
+<blockquote>
+<p>Do not communicate by sharing memory; instead, share memory by communicating</p>
+<p>&#x4E0D;&#x8981;&#x901A;&#x8FC7;&#x5171;&#x4EAB;&#x5185;&#x5B58;&#x6765;&#x901A;&#x4FE1;&#xFF0C;&#x76F8;&#x53CD;&#xFF0C;&#x5E94;&#x8BE5;&#x901A;&#x8FC7;&#x901A;&#x4FE1;&#x6765;&#x5171;&#x4EAB;&#x5185;&#x5B58;</p>
+</blockquote>
+<p>&#x5EF6;&#x4F38;&#x9605;&#x8BFB;:</p>
+<ul>
+<li><a href="https://talks.golang.org/2012/concurrency.slide#1" target="_blank">Go Concurrency Patterns</a></li>
+<li><a href="https://talks.golang.org/2013/advconc.slide#1" target="_blank">Advanced Go Concurrency Patterns</a></li>
+</ul>
+<h2 id="d-&#x5F02;&#x6B65;-vs-&#x540C;&#x6B65;-apis">(D) &#x5F02;&#x6B65; VS &#x540C;&#x6B65; APIs</h2>
+<p><strong>JS</strong></p>
+<p>JS &#x63D0;&#x5021;&#x4F7F;&#x7528;&#x5F02;&#x6B65; APIs&#xFF0C;&#x56E0;&#x4E3A;&#x540C;&#x6B65;APIs &#x7ECF;&#x5E38;&#x963B;&#x585E;&#x8C03;&#x7528;&#x8005;&#xFF0C;&#x4F8B;&#x5982;:</p>
+<pre><code class="lang-Javascript"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;fs&apos;</span>);
+
+<span class="hljs-comment">// &#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x7684;&#x8C03;&#x7528;&#x8005;&#x5728;&#x6587;&#x4EF6;&#x8BFB;&#x53D6;&#x65F6;&#x4F1A;&#x963B;&#x585E;</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchA</span>(<span class="hljs-params"></span>) </span>{
+   <span class="hljs-keyword">return</span> fs.readFileSync(<span class="hljs-string">&apos;a.txt&apos;</span>);
+}
+</code></pre>
+<p>&#x4E0A;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x91CC;&#xFF0C;&#x5728;&#x5927;&#x591A;&#x6570;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x4F7F;&#x7528;&#x5F02;&#x6B65;&#x51FD;&#x6570; <code>fs.readFile()</code> &#x5C06;&#x662F;&#x4E00;&#x4E2A;&#x66F4;&#x597D;&#x7684;&#x9009;&#x62E9;&#xFF0C;&#x5C06; <code>fetchA()</code> &#x53D8;&#x4E3A;&#x5F02;&#x6B65;&#xFF0C;&#x540C;&#x65F6;&#x4E0D;&#x963B;&#x585E;&#x4ED6;&#x7684;&#x8C03;&#x7528;&#x8005;&#x3002;</p>
+<p><strong>Go</strong></p>
+<p>&#x53E6;&#x4E00;&#x65B9;&#x9762;&#xFF0C;Go &#x63D0;&#x5021;&#x4F7F;&#x7528;&#x540C;&#x6B65;APIs (see &#x201C;Avoid concurrency in your API&#x201D; in <a href="https://talks.golang.org/2013/bestpractices.slide#26" target="_blank">https://talks.golang.org/2013/bestpractices.slide#26</a>) &#xFF0C;&#x539F;&#x56E0;&#x662F;&#x5B8C;&#x5168;&#x53EF;&#x4EE5;&#x7531;&#x5B83;&#x7684;&#x8C03;&#x7528;&#x8005;&#x6765;&#x51B3;&#x5B9A;&#x662F;&#x5426;&#x4F7F;&#x7528;&#x963B;&#x585E;&#x6216;&#x975E;&#x963B;&#x585E;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x8C03;&#x7528;&#x5B83;&#x3002;&#x770B;&#x770B;&#x4E0B;&#x9762;&#x5B9A;&#x4E49;&#x7684;&#x7C7B;&#x578B;&#x548C;&#x540C;&#x6B65; <code>fetchA</code>&#x7684;&#x51FD;&#x6570;:</p>
+<pre><code class="lang-Go"><span class="hljs-keyword">type</span> fetchResult <span class="hljs-keyword">struct</span> {
+    Message <span class="hljs-keyword">string</span>
+    Error   error
+}
+
+<span class="hljs-keyword">func</span> fetchA() fetchResult {
+    time.Sleep(time.Second * <span class="hljs-number">4</span>)
+    <span class="hljs-keyword">return</span> fetchResult{<span class="hljs-string">&quot;A data&quot;</span>, <span class="hljs-literal">nil</span>}
+}
+</code></pre>
+<p>&#x5982;&#x679C;&#x8C03;&#x7528;&#x8005;&#x60F3;&#x8981;&#x88AB;&#x963B;&#x585E;&#xFF0C;&#x90A3;&#x4E48;&#x4ED6;&#x53EF;&#x4EE5;&#x8FD9;&#x6837;&#x8C03;&#x7528;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;</p>
+<pre><code class="lang-Go">a := fetchA()
+</code></pre>
+<p>&#x5982;&#x679C;&#x8C03;&#x7528;&#x8005;&#x4E0D;&#x60F3;&#x88AB;&#x963B;&#x585E;&#xFF0C;&#x90A3;&#x4E48;&#x4ED6;&#x53EF;&#x4EE5;&#x5728;&#x534F;&#x7A0B;&#x91CC;&#x8C03;&#x7528;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#xFF1A;</p>
+<pre><code class="lang-Go">aChan := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> fetchResult, <span class="hljs-number">0</span>)
+<span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>(c <span class="hljs-keyword">chan</span> fetchResult) {
+    c &lt;- fetchA()
+}(aChan)
+
+<span class="hljs-comment">// &#x505A;&#x522B;&#x7684;&#x4E8B;&#x513F;&#xFF0C;&#x7136;&#x540E;&#x4ECE;&#x7BA1;&#x9053;&#x91CC;&#x8BFB;&#x53D6;&#x4FE1;&#x606F;</span>
+a := &lt;-aChan
+</code></pre>
+<h2 id="d-&#x987A;&#x5E8F;&#x548C;&#x5E76;&#x53D1;&#x6A21;&#x5F0F;">(D) &#x987A;&#x5E8F;&#x548C;&#x5E76;&#x53D1;&#x6A21;&#x5F0F;</h2>
+<p><strong>JS</strong></p>
+<p>&#x5373;&#x4F7F;&#x6CA1;&#x6709;&#x5E76;&#x884C;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x987A;&#x5E8F;&#x548C;&#x5E76;&#x53D1;&#x7684;&#x65B9;&#x5F0F;&#x6784;&#x5EFA;Javascript &#x4EE3;&#x7801;&#xFF0C;
+&#x5982;&#x4E0B;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#xFF0C;&#x6211;&#x4EEC;&#x5047;&#x8BBE; <code>fetchA()</code>, <code>fetchB()</code> &#x548C; <code>fetchC()</code> &#x90FD;&#x662F;&#x4E00;&#x90E8;&#x51FD;&#x6570;&#xFF0C;&#x5E76;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;Promise.</p>
+<p><strong>&#x987A;&#x5E8F;&#x6267;&#x884C;</strong></p>
+<pre><code class="lang-Javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchSequential</span>(<span class="hljs-params"></span>) </span>{
+    fetchA().then(a =&gt; {
+        <span class="hljs-built_in">console</span>.log(a);
+        <span class="hljs-keyword">return</span> fetchB();
+    }).then(b =&gt; {
+        <span class="hljs-built_in">console</span>.log(b);
+        <span class="hljs-keyword">return</span> fetchC();
+    }).then(c =&gt; {
+        <span class="hljs-built_in">console</span>.log(c);
+    })
+}
+</code></pre>
+<p>&#x6216;&#x8005;</p>
+<pre><code class="lang-Javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchSequential</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">const</span> a = <span class="hljs-keyword">await</span> fetchA();
+    <span class="hljs-built_in">console</span>.log(a);
+    <span class="hljs-keyword">const</span> b = <span class="hljs-keyword">await</span> fetchB();
+    <span class="hljs-built_in">console</span>.log(b);
+    <span class="hljs-keyword">const</span> c = <span class="hljs-keyword">await</span> fetchC();
+    <span class="hljs-built_in">console</span>.log(c);
+}
+</code></pre>
+<p><strong>&#x5E76;&#x53D1;</strong></p>
+<pre><code class="lang-Javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchConcurrent</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">Promise</span>.all([fetchA(), fetchB(), fetchC()]).then(values =&gt; {
+        <span class="hljs-built_in">console</span>.log(values);
+    }
+}
+</code></pre>
+<p>&#x6216;&#x8005;</p>
+<pre><code class="lang-Javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchConcurrent</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">const</span> values = <span class="hljs-keyword">await</span> <span class="hljs-built_in">Promise</span>.all([fetchA(), fetchB(), fetchC()])
+    <span class="hljs-built_in">console</span>.log(values);
+}
+</code></pre>
+<p><strong>Go</strong></p>
+<p>&#x5982;&#x4E0B;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#xFF0C;&#x5047;&#x8BBE;&#x5B9A;&#x4E49;&#x7684; <code>fetchB()</code> and <code>fetchC()</code> &#x662F;&#x4E0E;&#x524D;&#x9762;&#x7AE0;&#x8282;&#x91CC;<code>fetchA</code>&#x7684;&#x540C;&#x6B65;&#x51FD;&#x6570; (The full example is available at <a href="https://play.golang.org/p/2BVwtos4-j" target="_blank">https://play.golang.org/p/2BVwtos4-j</a>)</p>
+<p><strong>&#x540C;&#x6B65;</strong></p>
+<pre><code class="lang-Go"><span class="hljs-keyword">func</span> fetchSequential() {
+    a := fetchA()
+    fmt.Println(a)
+    b := fetchB()
+    fmt.Println(b)
+    c := fetchC()
+    fmt.Println(c)
+}
+</code></pre>
+<p><strong>&#x5E76;&#x53D1;</strong></p>
+<pre><code class="lang-Go"><span class="hljs-keyword">func</span> fetchConcurrent() {
+    aChan := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> fetchResult, <span class="hljs-number">0</span>)
+    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>(c <span class="hljs-keyword">chan</span> fetchResult) {
+        c &lt;- fetchA()
+    }(aChan)
+    bChan := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> fetchResult, <span class="hljs-number">0</span>)
+    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>(c <span class="hljs-keyword">chan</span> fetchResult) {
+        c &lt;- fetchB()
+    }(bChan)
+    cChan := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> fetchResult, <span class="hljs-number">0</span>)
+    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>(c <span class="hljs-keyword">chan</span> fetchResult) {
+        c &lt;- fetchC()
+    }(cChan)
+
+    <span class="hljs-comment">// &#x4E0D;&#x8003;&#x8651;&#x987A;&#x5E8F;</span>
+    a := &lt;-aChan
+    b := &lt;-bChan
+    c := &lt;-cChan
+    fmt.Println(a)
+    fmt.Println(b)
+    fmt.Println(c)
+}
+</code></pre>
+<p>&#x6216;&#x8005;</p>
+<pre><code class="lang-Go">
+<span class="hljs-keyword">func</span> fetchConcurrent() {
+    aChan := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> fetchResult, <span class="hljs-number">0</span>)
+    bChan := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> fetchResult, <span class="hljs-number">0</span>)
+    cChan := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> fetchResult, <span class="hljs-number">0</span>)
+
+    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>(c <span class="hljs-keyword">chan</span> fetchResult) {
+        c &lt;- fetchA()
+    }(aChan)
+    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>(c <span class="hljs-keyword">chan</span> fetchResult) {
+        c &lt;- fetchB()
+    }(bChan)
+    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>(c <span class="hljs-keyword">chan</span> fetchResult) {
+        c &lt;- fetchC()
+    }(cChan)
+
+    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">3</span>; i++ {
+        <span class="hljs-keyword">select</span> {
+        <span class="hljs-keyword">case</span> a := &lt;-aChan:
+            fmt.Println(a)
+        <span class="hljs-keyword">case</span> b := &lt;-bChan:
+            fmt.Println(b)
+        <span class="hljs-keyword">case</span> c := &lt;-cChan:
+            fmt.Println(c)
+
+        }
+    }
+}
+</code></pre>
+
+                                
+                                </section>
+                            
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../internals/#d-编译" class="navigation navigation-prev " aria-label="Previous page: (D) 编译">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="./#d-概览" class="navigation navigation-next " aria-label="Next page: (D) 概览">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"并发与并行","level":"1.3","depth":1,"next":{"title":"(D) 概览","level":"1.3.1","depth":2,"anchor":"#d-概览","path":"pages/concurrency-parallelism/README.md","ref":"pages/concurrency-parallelism/README.md#d-概览","articles":[]},"previous":{"title":"(D) 编译","level":"1.2.3","depth":2,"anchor":"#d-编译","path":"pages/internals/README.md","ref":"pages/internals/README.md#d-编译","articles":[]},"dir":"ltr"},"config":{"plugins":["-sharing","-search"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":" Maor Zamski & Daniel Singer 翻译 Chen Jinya","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Go For Javascript Developers","language":"zh","gitbook":"*"},"file":{"path":"pages/concurrency-parallelism/README.md","mtime":"2020-01-20T03:59:15.096Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-01-22T12:03:25.180Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

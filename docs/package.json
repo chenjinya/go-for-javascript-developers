@@ -1,0 +1,14 @@
+{
+  "name": "goforjavascriptdeveloper-chinese",
+  "version": "1.0.0",
+  "description": "Go For Javascript Deveopers 中文版",
+  "dependencies": {
+    "gitbook-cli": "^2.3.2",
+    "gitbook-plugin-scripts": "^1.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "build": "gitbook build",
+    "serve": "gitbook serve"
+  }
+}
