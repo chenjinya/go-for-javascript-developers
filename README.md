@@ -8,7 +8,9 @@
 
 英文原版开源Gitbook地址 [http://www.pazams.com/Go-for-Javascript-Developers/](http://www.pazams.com/Go-for-Javascript-Developers/)
 
-中文翻译版本 [https://github.com/chenjinya/go-for-javascript-developers](https://github.com/chenjinya/go-for-javascript-developers)
+中文翻译版本 [http://chenjinya.com/go-for-javascript-developers/index.html](http://chenjinya.com/go-for-javascript-developers/index.html)
+
+中文翻译Github [https://github.com/chenjinya/go-for-javascript-developers](https://github.com/chenjinya/go-for-javascript-developers)
 
 ## License
 
